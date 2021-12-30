@@ -1,11 +1,34 @@
 import React from "react";
+import { HashRouter, Route, Routes, Link } from "react-router-dom";
 
-function App() {
+// pages
+import Top from "pages/Top/Top";
+import Login from "pages/Login/Login";
+import Register from "pages/Register/Register";
+import EasySetting from "pages/EasySetting/EasySetting";
+import Main from "pages/Main/Main";
+import Setting from "pages/Setting/Setting";
+
+// define props
+type Props = {};
+
+export const App: React.FC<Props> = () => {
   return (
-    <div>
-      <h1>Routine Paper</h1>
-    </div>
+    <HashRouter>
+      <h1>Routine Page</h1>
+      <Routes>
+        <Route path="/" element={<Top />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/EasySetting" element={<EasySetting />} />
+        <Route path="/Main" element={<Main />} />
+        <Route path="/Setting" element={<Setting />} />
+      </Routes>
+      <div>
+        <Link to="/">トップへ戻る</Link>
+      </div>
+    </HashRouter>
   );
-}
+};
 
 export default App;
