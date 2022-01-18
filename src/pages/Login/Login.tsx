@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import GoogleLogin, {GoogleLoginResponse,GoogleLoginResponseOffline} from "react-google-login";
+import GoogleLogin, {
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from "react-google-login";
 
 import Config from "config";
 import { signInWithGoogleAsync } from "services/user/user";
@@ -13,9 +16,11 @@ type Props = {};
 export const Login: React.FC<Props> = () => {
   const dispatch = useDispatch();
 
-  const handleGoogleLogin = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+  const handleGoogleLogin = (
+    response: GoogleLoginResponse | GoogleLoginResponseOffline
+  ) => {
     //GoogleLoginResponseOfflineをガード
-    if(!("accessToken" in response)) return;
+    if (!("accessToken" in response)) return;
     dispatch(signInWithGoogleAsync(response.accessToken));
   };
 

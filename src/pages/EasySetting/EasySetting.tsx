@@ -13,22 +13,16 @@ export const EasySetting: React.FC<Props> = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(updateUserInfoAsync())
+    dispatch(updateUserInfoAsync());
   }, []);
 
   return (
     <div>
       <h1>EasySetting</h1>
       <ul>
-        <li>
-          username: {user.user?.username}
-        </li>
-        <li>
-          first_name: {user.user?.first_name}
-        </li>
-        <li>
-          last_name: {user.user?.last_name}
-        </li>
+        <li>username: {user.user?.username}</li>
+        <li>first_name: {user.user?.first_name}</li>
+        <li>last_name: {user.user?.last_name}</li>
         <li>
           <Link to="/main">Main Page</Link>
         </li>
