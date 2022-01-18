@@ -10,7 +10,7 @@ export const Register: React.FC<Props> = () => {
       <h1>Register</h1>
       <ul>
         <li>
-          <Link to="/easysetting">EasySetting Page</Link>
+          <Link to="/easy_setting">EasySetting Page</Link>
         </li>
       </ul>
     </div>
