@@ -1,13 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import axios from "axios";
+import "index.css";
+import App from "App";
+import reportWebVitals from "reportWebVitals";
+
+import { Provider } from "react-redux";
+import { store } from "store";
+import Config from "config";
+
+axios.defaults.baseURL = Config.api.host;
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById("root")
 );
 
