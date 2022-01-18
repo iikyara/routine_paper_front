@@ -15,6 +15,13 @@ jobs:
 
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    
+    # set env
+    env:
+      REACT_APP_GOOGLE_CLIENT_ID: ${{secrets.REACT_APP_GOOGLE_CLIENT_ID}}
+      REACT_APP_DRF_CLIENT_ID: ${{secrets.REACT_APP_DRF_CLIENT_ID}}
+      REACT_APP_DRF_CLIENT_SECRET: ${{secrets.REACT_APP_DRF_CLIENT_SECRET}}
+      REACT_APP_API_HOST: ${{secrets.REACT_APP_API_HOST}}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
