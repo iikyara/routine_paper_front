@@ -19,10 +19,10 @@ export const App: React.FC<Props> = () => {
       <Routes>
         <Route path="/" element={<Top />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/EasySetting" element={<EasySetting />} />
-        <Route path="/Main" element={<Main />} />
-        <Route path="/Setting" element={<Setting />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/easysetting" element={<EasySetting />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/setting" element={<Setting />} />
       </Routes>
       <div>
         <Link to="/">トップへ戻る</Link>
