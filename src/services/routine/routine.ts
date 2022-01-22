@@ -156,6 +156,9 @@ const routineSlice = createSlice({
       action.payload.forEach((elem) => {
         const { week, routines } = elem;
 
+        if (!(week in state.week))
+          state.week[week] = { routines: {}, length: 0 };
+
         routines.forEach((routine) => {
           state.week[week].routines[routine.id] = routine;
           state.week[week].routines[routine.id].is_created = true;
@@ -202,6 +205,9 @@ const routineSlice = createSlice({
       action.payload.forEach((elem) => {
         const { date, routines } = elem;
         const date_str = date.toDateString();
+
+        if (!(date_str in state.spec_day))
+          state.spec_day[date_str] = { routines: {}, length: 0 };
 
         routines.forEach((routine) => {
           state.spec_day[date_str].routines[routine.id] = routine;
