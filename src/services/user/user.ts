@@ -48,7 +48,7 @@ const userSlice = createSlice({
     },
     signOut: (state) => {
       state.isLogin = false;
-      state.user = undefined;
+      delete state.user;
     },
     update: (state, action: { type: string; payload: User }) => {
       state.isLogin = true;
@@ -91,7 +91,6 @@ export const signInAsync = (payload: signInFormat) => {
       .catch((err) => {
         console.error("Error SignIn", err);
       });
-    dispatch(signIn());
   };
 };
 
