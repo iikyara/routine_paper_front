@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosWithToken from "axios_with_token";
 
 export type Routine = {
   id: string;
@@ -274,7 +274,7 @@ export const getAllRoutinesAsync = () => {
 
 export const getRoutineEveryDayAsync = () => {
   return async (dispatch: any) => {
-    axios
+    axiosWithToken
       .get("/routine/everyday")
       .then((res) => {
         const daily_routine: DailyRoutine = { routines: {}, length: 0 };
@@ -295,21 +295,21 @@ export const getRoutineEveryDayAsync = () => {
 
 export const getRoutineEveryWeekAsync = () => {
   return async (dispatch: any) => {
-    axios
+    axiosWithToken
       .get("/routine/everyweek")
       .then((res) => {
         const daily_routines: { week: WeekType; routine: DailyRoutine }[] = [];
 
         //１週間のデータをまとめる
-        for (let i = 0; i < 7; i++) {
+        for (const week of Object.values(Week)) {
           const daily_routine: DailyRoutine = { routines: {}, length: 0 };
 
           res.data
-            .filter((data: any) => data.week == i)
+            .filter((data: any) => data.week == week)
             .forEach((data: any) => {
               daily_routine.routines[data.id] = data;
             });
-          daily_routines.push({ week: i as WeekType, routine: daily_routine });
+          daily_routines.push({ week: week, routine: daily_routine });
         }
 
         //登録
@@ -323,7 +323,7 @@ export const getRoutineEveryWeekAsync = () => {
 
 export const getRoutineSpecDayAsync = () => {
   return async (dispatch: any) => {
-    axios
+    axiosWithToken
       .get("/routine/specday")
       .then((res) => {
         const daily_routines: { [day: string]: DailyRoutine } = {};

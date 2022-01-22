@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import axiosWithToken from "axios_with_token";
 import Config from "config";
 import { Cookies } from "react-cookie";
 
@@ -138,17 +139,13 @@ export const signInWithGoogleAsync = (googleAccessToken: string) => {
 
 export const updateUserInfoAsync = () => {
   return async (dispatch: any) => {
-    const access_token = cookies.get("access_token");
-    const token_type = cookies.get("token_type");
+    // const access_token = cookies.get("access_token");
+    // const token_type = cookies.get("token_type");
 
-    if (access_token === null) return;
+    // if (access_token === null) return;
 
-    axios
-      .get("/user/current/", {
-        headers: {
-          Authorization: `${token_type} ${access_token}`,
-        },
-      })
+    axiosWithToken
+      .get("/user/current/")
       .then((res) => {
         dispatch(
           update({
