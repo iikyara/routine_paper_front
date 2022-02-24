@@ -15,7 +15,7 @@ jobs:
 
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    
+
     # set env
     env:
       REACT_APP_GOOGLE_CLIENT_ID: ${{secrets.REACT_APP_GOOGLE_CLIENT_ID}}
