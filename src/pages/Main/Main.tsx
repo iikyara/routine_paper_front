@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { Routine, getAllRoutinesAsync } from "services/routine/routine";
 
+import SignOut from "components/SignOut/SignOut";
 import RoutineInfo from "./components/RoutineInfo/RoutineInfo";
 
 // define props
@@ -53,6 +54,9 @@ export const Main: React.FC<Props> = () => {
         <li>
           本日のルーティン一覧
           <RoutineInfo routines={daily_routine}></RoutineInfo>
+        </li>
+        <li>
+          <SignOut />
         </li>
         <li>
           <Link to="/setting">Setting Page</Link>

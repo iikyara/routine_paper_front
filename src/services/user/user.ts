@@ -1,43 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import axiosWithToken from "axios_with_token";
-import Config from "config";
-import { Cookies } from "react-cookie";
 
-const drfClientId = Config.drf.clientId;
-const drfClientSecret = Config.drf.clientSecret;
-const cookies = new Cookies();
+import { signOutAsync as firebaseSignOutAsync } from "firebase_auth";
 
 export type User = {
-  username: string;
-  first_name: string;
-  last_name: string;
+  screenName?: string;
+  picture?: string;
+  date_joined?: Date;
 };
 
 export type UserState = {
   isLogin: boolean;
   user?: User;
-};
-
-// to token
-export type signInFormat = {
-  username: string;
-  password: string;
-};
-
-export type signUpFormat = {
-  username: string;
-  password: string;
-  email: string;
-  nickname: string;
-};
-
-export type authResponseFormat = {
-  access_token: string;
-  expires_in: number;
-  token_type: string;
-  scope: string;
-  refresh_token: string;
 };
 
 const userSlice = createSlice({
@@ -60,121 +34,35 @@ const userSlice = createSlice({
 
 export const { signIn, signOut, update } = userSlice.actions;
 
-export const signInAsync = (payload: signInFormat) => {
-  return async (dispatch: any) => {
-    axios
-      .post("/auth/token", {
-        client_id: drfClientId,
-        client_secret: drfClientSecret,
-        grant_type: "password",
-        username: payload.username,
-        password: payload.password,
-      })
-      .then((res) => {
-        const d = res.data as authResponseFormat;
-        const expires = new Date();
-        expires.setSeconds(expires.getSeconds() + d.expires_in);
-        cookies.set("access_token", d.access_token, {
-          expires: expires,
-          httpOnly: true,
-        });
-        cookies.set("token_type", d.token_type, {
-          expires: expires,
-          httpOnly: true,
-        });
-        cookies.set("refresh_token", d.refresh_token, {
-          expires: expires,
-          httpOnly: true,
-        });
-        dispatch(signIn());
-        dispatch(updateUserInfoAsync());
-      })
-      .catch((err) => {
-        console.error("Error SignIn", err);
-      });
-  };
-};
-
 export const signOutAsync = () => {
   return async (dispatch: any) => {
-    cookies.remove("access_token");
-    cookies.remove("refresh_token");
-    dispatch(signOut());
-  };
-};
-
-// export const signUpAsync = (payload: signUpFormat) => {
-//   return async (dispatch: any) => {
-//     //TODO: signup処理
-//   };
-// };
-
-export const signInWithGoogleAsync = (googleAccessToken: string) => {
-  return async (dispatch: any) => {
-    axios
-      .post("/auth/convert-token", {
-        token: googleAccessToken,
-        backend: "google-oauth2",
-        grant_type: "convert_token",
-        client_id: drfClientId,
-        client_secret: drfClientSecret,
+    firebaseSignOutAsync()
+      .then(() => {
+        dispatch(signOut());
       })
-      .then((res) => {
-        const d = res.data as authResponseFormat;
-        const expires = new Date();
-
-        expires.setSeconds(expires.getSeconds() + d.expires_in);
-        cookies.set("access_token", d.access_token, { expires: expires });
-        cookies.set("token_type", d.token_type, { expires: expires });
-        cookies.set("refresh_token", d.refresh_token, { expires: expires });
-
-        dispatch(signIn());
-        dispatch(updateUserInfoAsync());
-      })
-      .catch((err) => {
-        console.error("Error Google login", err);
+      .catch(() => {
+        console.log("ログアウトに失敗しました");
       });
   };
 };
 
 export const updateUserInfoAsync = () => {
   return async (dispatch: any) => {
-    // const access_token = cookies.get("access_token");
-    // const token_type = cookies.get("token_type");
-
-    // if (access_token === null) return;
-
     axiosWithToken
       .get("/user/current/")
       .then((res) => {
         dispatch(
           update({
-            username: res.data.username,
-            first_name: res.data.first_name,
-            last_name: res.data.last_name,
+            screenName: res.data.screen_name,
+            picture: res.data.picture,
+            date_joined: res.data.date_joined,
           })
         );
       })
-      .catch((err) => {
-        console.error("Error Update User Info", err);
+      .catch(() => {
+        console.log("Error Update User Info");
       });
   };
 };
 
 export default userSlice.reducer;
-
-// {
-//   "client_id":"",
-//   "client_secret":"",
-//   "grant_type":"password",
-//   "username":"",
-//   "password":""
-// }
-
-// {
-//   "grant_type"="convert_token",
-//   "client_id"="",
-//   "client_secret"="",
-//   "backend"="google-oauth2",
-//   "token"=""
-// }

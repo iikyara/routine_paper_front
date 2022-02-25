@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { HashRouter, Route, Routes, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // pages
 import Top from "pages/Top/Top";
@@ -9,10 +10,23 @@ import EasySetting from "pages/EasySetting/EasySetting";
 import Main from "pages/Main/Main";
 import Setting from "pages/Setting/Setting";
 
+// user management
+import { auth } from "firebase_auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { updateUserInfoAsync } from "services/user/user";
+
 // define props
 type Props = {};
 
 export const App: React.FC<Props> = () => {
+  const [user] = useAuthState(auth);
+  const dispatch = useDispatch();
+
+  // ユーザ状態変更時にユーザ情報を更新
+  useEffect(() => {
+    dispatch(updateUserInfoAsync());
+  }, [user]);
+
   return (
     <HashRouter>
       <h1>Routine Page</h1>
