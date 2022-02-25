@@ -1,7 +1,8 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import App from "./App";
-
-test("renders learn react link", () => {
-  render(<App />);
+describe("Dummy test case", () => {
+  it("Dummy 1", async () => {
+    const dummy_text = "This is dummy test case";
+    expect(dummy_text).toEqual("This is dummy test case");
+  });
 });
+
+export {};

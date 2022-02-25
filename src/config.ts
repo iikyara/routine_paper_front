@@ -1,11 +1,13 @@
 const Config = () => {
   return {
-    google: {
-      clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID as string,
-    },
-    drf: {
-      clientId: process.env.REACT_APP_DRF_CLIENT_ID as string,
-      clientSecret: process.env.REACT_APP_DRF_CLIENT_SECRET as string,
+    firebase: {
+      apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+      authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+      projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+      storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+      messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+      appId: process.env.REACT_APP_FIREBASE_APP_ID,
+      measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
     },
     api: {
       host: process.env.REACT_APP_API_HOST as string,

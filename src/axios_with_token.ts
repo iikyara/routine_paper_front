@@ -1,10 +1,8 @@
 import axios, { Axios } from "axios";
-import { Cookies } from "react-cookie";
 import Config from "config";
+import { getIdToken } from "firebase_auth";
 
 axios.defaults.baseURL = Config.api.host;
-
-const cookies = new Cookies();
 
 const instance: Axios = axios.create({
   headers: {
@@ -15,12 +13,13 @@ const instance: Axios = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const access_token = cookies.get("access_token");
-    const token_type = cookies.get("token_type");
+    //tokenを取得
+    const token = getIdToken();
 
-    if (access_token) {
+    //tokenをヘッダーに設定
+    if (token) {
       if (!config.headers) config.headers = {};
-      config.headers["Authorization"] = `${token_type} ${access_token}`;
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
 
     return config;
