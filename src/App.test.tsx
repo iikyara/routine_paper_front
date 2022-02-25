@@ -5,4 +5,4 @@ describe("Dummy test case", () => {
   });
 });
 
-export {}
+export {};
