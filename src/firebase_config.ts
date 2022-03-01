@@ -1,5 +1,6 @@
 import firebase from "firebase/compat/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 import "firebase/compat/auth";
 
 import Config from "config";
@@ -16,6 +17,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+//authentication
 const _auth = getAuth();
 
 //サインアウト
@@ -50,5 +52,8 @@ onAuthStateChanged(_auth, (user) => {
     //   });
   }
 });
+
+//database
+export const db = getDatabase();
 
 export const auth = _auth;

@@ -1,6 +1,6 @@
 import axios, { Axios } from "axios";
 import Config from "config";
-import { getIdToken } from "firebase_auth";
+import { getIdToken } from "firebase_config";
 
 axios.defaults.baseURL = Config.api.host;
 
@@ -20,6 +20,8 @@ instance.interceptors.request.use(
     if (token) {
       if (!config.headers) config.headers = {};
       config.headers["Authorization"] = `Bearer ${token}`;
+    } else {
+      if (config.headers) delete config.headers["Authorization"];
     }
 
     return config;

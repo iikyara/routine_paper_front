@@ -61,6 +61,9 @@ export const Main: React.FC<Props> = () => {
         <li>
           <Link to="/setting">Setting Page</Link>
         </li>
+        <li>
+          <Link to="/room">Go to Room</Link>
+        </li>
       </ul>
     </div>
   );

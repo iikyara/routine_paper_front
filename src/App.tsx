@@ -9,9 +9,10 @@ import Register from "pages/Register/Register";
 import EasySetting from "pages/EasySetting/EasySetting";
 import Main from "pages/Main/Main";
 import Setting from "pages/Setting/Setting";
+import Room from "pages/Room/Room";
 
 // user management
-import { auth } from "firebase_auth";
+import { auth } from "firebase_config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { updateUserInfoAsync } from "services/user/user";
 
@@ -37,6 +38,7 @@ export const App: React.FC<Props> = () => {
         <Route path="/easysetting" element={<EasySetting />} />
         <Route path="/main" element={<Main />} />
         <Route path="/setting" element={<Setting />} />
+        <Route path="/room" element={<Room />} />
       </Routes>
       <div>
         <Link to="/">トップへ戻る</Link>

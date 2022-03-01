@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axiosWithToken from "axios_with_token";
 
-import { signOutAsync as firebaseSignOutAsync } from "firebase_auth";
+import { signOutAsync as firebaseSignOutAsync } from "firebase_config";
 
 export type User = {
+  id: string;
   screenName?: string;
   picture?: string;
   date_joined?: Date;
@@ -53,6 +54,7 @@ export const updateUserInfoAsync = () => {
       .then((res) => {
         dispatch(
           update({
+            id: res.data.id,
             screenName: res.data.screen_name,
             picture: res.data.picture,
             date_joined: res.data.date_joined,
